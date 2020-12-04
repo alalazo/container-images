@@ -1,13 +1,28 @@
 # Build stage with Spack pre-installed and ready to be used
 FROM spack/ubuntu-bionic:latest as builder
 
+# Install OS packages needed to build the software
+RUN apt-get -yqq update && apt-get -yqq upgrade \
+ && apt-get -yqq install cmake perl \
+ && rm -rf /var/lib/apt/lists/*
 
 # What we want to install and how we want to install it
 # is specified in a manifest file (spack.yaml)
 RUN mkdir /opt/spack-environment \
 &&  (echo "spack:" \
 &&   echo "  specs:" \
-&&   echo "  - gromacs+mpi" \
+&&   echo "  - gromacs+mpi target=broadwell" \
+&&   echo "  packages:" \
+&&   echo "    perl:" \
+&&   echo "      externals:" \
+&&   echo "      - spec: perl@5.26.1" \
+&&   echo "        prefix: /usr" \
+&&   echo "      buildable: false" \
+&&   echo "    cmake:" \
+&&   echo "      externals:" \
+&&   echo "      - spec: cmake@3.10.2" \
+&&   echo "        prefix: /usr" \
+&&   echo "      buildable: false" \
 &&   echo "  concretization: together" \
 &&   echo "  config:" \
 &&   echo "    install_tree: /opt/software" \
