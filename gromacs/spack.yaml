@@ -1,6 +1,6 @@
 spack:
   specs:
-  - gromacs+mpi
+  - gromacs+mpi target=broadwell
   packages:
     perl:
       externals:

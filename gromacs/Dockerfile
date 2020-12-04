@@ -11,7 +11,7 @@ RUN apt-get -yqq update && apt-get -yqq upgrade \
 RUN mkdir /opt/spack-environment \
 &&  (echo "spack:" \
 &&   echo "  specs:" \
-&&   echo "  - gromacs+mpi" \
+&&   echo "  - gromacs+mpi target=broadwell" \
 &&   echo "  packages:" \
 &&   echo "    perl:" \
 &&   echo "      externals:" \
