@@ -39,11 +39,11 @@ jobs:
         run: cd gromacs && docker build . --file Dockerfile --tag gromacs
 
       - name: Log into registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
       - name: Push image
         run: |
-          IMAGE_ID=ghcr.io/${{ github.actor }}/gromacs
+          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/gromacs
 
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
