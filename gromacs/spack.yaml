@@ -17,3 +17,5 @@ spack:
       build:
       - cmake
       - perl
+      final:
+      - libgomp1
