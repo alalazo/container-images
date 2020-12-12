@@ -51,6 +51,9 @@ COPY --from=builder /opt/software /opt/software
 COPY --from=builder /opt/view /opt/view
 COPY --from=builder /etc/profile.d/z10_spack_environment.sh /etc/profile.d/z10_spack_environment.sh
 
+RUN apt-get -yqq update && apt-get -yqq upgrade \
+ && apt-get -yqq install libgomp1 \
+ && rm -rf /var/lib/apt/lists/*
 
 
 ENTRYPOINT ["/bin/bash", "--rcfile", "/etc/profile", "-l"]
