@@ -18,6 +18,11 @@ jobs:
   # - https://github.com/crazy-max/ghaction-docker-meta
   build-push:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        application:
+        - gromacs
+        - quantum-espresso
     steps:
       - uses: actions/checkout@v2
 
@@ -25,7 +30,7 @@ jobs:
       - uses: crazy-max/ghaction-docker-meta@v1
         id: docker_meta
         with:
-          images: docker.pkg.github.com/${{ github.repository }}/gromacs
+          images: docker.pkg.github.com/${{ github.repository }}/${{ matrix.application }}
 
       # Login to Github Packages
       - uses: docker/login-action@v1
@@ -40,8 +45,8 @@ jobs:
       # Build and eventually push to registry
       - uses: docker/build-push-action@v2
         with:
-          context: ./gromacs
-          file: ./gromacs/Dockerfile
+          context: ./${{ matrix.application }}
+          file: ./${{ matrix.application }}/Dockerfile
           platforms: linux/amd64
           load: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.docker_meta.outputs.tags }}
@@ -50,4 +55,4 @@ jobs:
       - name: Push to Github Packages
         if: github.event_name != 'pull_request'
         run: |
-          docker push docker.pkg.github.com/${{ github.repository }}/gromacs
+          docker push docker.pkg.github.com/${{ github.repository }}/${{ matrix.application }}
