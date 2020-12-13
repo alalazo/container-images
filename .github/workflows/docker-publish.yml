@@ -47,6 +47,7 @@ jobs:
           context: ./${{ matrix.application }}
           file: ./${{ matrix.application }}/Dockerfile
           platforms: linux/amd64
+          pull: ${{ github.event_name == 'pull_request' }}
           push: True
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
