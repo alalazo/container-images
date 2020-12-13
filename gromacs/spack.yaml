@@ -18,4 +18,4 @@ spack:
       - cmake
       - perl
       final:
-      - libgomp1
+      - libgfortran4
