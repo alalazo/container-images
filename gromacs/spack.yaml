@@ -1,6 +1,7 @@
 spack:
   specs:
   - gromacs+mpi target=broadwell
+  - openmpi
   packages:
     perl:
       externals:
@@ -19,3 +20,4 @@ spack:
       - perl
       final:
       - libgfortran4
+      - ssh
