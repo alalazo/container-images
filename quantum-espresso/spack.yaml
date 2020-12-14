@@ -1,6 +1,7 @@
 spack:
   specs:
   - quantum-espresso target=broadwell
+  - openmpi
   packages:
     perl:
       externals:
@@ -17,3 +18,5 @@ spack:
       build:
       - cmake
       - perl
+      final:
+      - ssh
