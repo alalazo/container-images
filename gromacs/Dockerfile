@@ -12,6 +12,7 @@ RUN mkdir /opt/spack-environment \
 &&  (echo "spack:" \
 &&   echo "  specs:" \
 &&   echo "  - gromacs+mpi target=broadwell" \
+&&   echo "  - openmpi" \
 &&   echo "  packages:" \
 &&   echo "    perl:" \
 &&   echo "      externals:" \
@@ -52,7 +53,7 @@ COPY --from=builder /opt/view /opt/view
 COPY --from=builder /etc/profile.d/z10_spack_environment.sh /etc/profile.d/z10_spack_environment.sh
 
 RUN apt-get -yqq update && apt-get -yqq upgrade \
- && apt-get -yqq install libgomp1 \
+ && apt-get -yqq install libgomp1 ssh \
  && rm -rf /var/lib/apt/lists/*
 
 

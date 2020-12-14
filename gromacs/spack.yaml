@@ -19,5 +19,5 @@ spack:
       - cmake
       - perl
       final:
-      - libgfortran4
+      - libgomp1
       - ssh
