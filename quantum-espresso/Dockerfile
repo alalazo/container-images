@@ -12,6 +12,7 @@ RUN mkdir /opt/spack-environment \
 &&  (echo "spack:" \
 &&   echo "  specs:" \
 &&   echo "  - quantum-espresso target=broadwell" \
+&&   echo "  - 'openmpi@4.0.0:'" \
 &&   echo "  packages:" \
 &&   echo "    perl:" \
 &&   echo "      externals:" \
@@ -51,6 +52,11 @@ COPY --from=builder /opt/software /opt/software
 COPY --from=builder /opt/view /opt/view
 COPY --from=builder /etc/profile.d/z10_spack_environment.sh /etc/profile.d/z10_spack_environment.sh
 
+RUN apt-get -yqq update && apt-get -yqq upgrade \
+ && apt-get -yqq install ssh \
+ && rm -rf /var/lib/apt/lists/*
+
+ENV OMPI_ALLOW_RUN_AS_ROOT=1 OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
 
 
 ENTRYPOINT ["/bin/bash", "--rcfile", "/etc/profile", "-l"]
