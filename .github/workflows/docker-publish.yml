@@ -25,7 +25,7 @@ jobs:
         - gromacs
         - quantum-espresso
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       # Setup tags to be used for docker images
       - uses: crazy-max/ghaction-docker-meta@v2.1.1
